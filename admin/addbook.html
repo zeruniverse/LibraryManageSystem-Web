@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图书管理系统</title>
+<link rel="shortcut icon" type="image/x-icon" href="../style/images/favicon.png" />
+<link rel="stylesheet" type="text/css" href="uploadifive.css">
+<link rel="stylesheet" type="text/css" href="../style.css" media="all" />
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="style/css/ie7.css" media="all" />
+<![endif]-->
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="style/css/ie8.css" media="all" />
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="style/css/ie9.css" media="all" />
+<![endif]-->
+<script type="text/javascript" src="../style/js/jquery-1.6.4.min.js"></script>
+<script src="jquery.uploadifive.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../style/js/ddsmoothmenu.js"></script>
+
+<style type="text/css">
+body {
+	font: 13px Arial, Helvetica, Sans-serif;
+}
+.uploadifive-button {
+	float:left;
+	margin-right: 10px;
+	
+}
+#queue {
+	border: 1px solid #000;
+	height: 177px;
+	overflow: auto;
+	margin-bottom: 10px;
+	padding: 0 3px 3px;
+	width: 90%;
+}
+</style>
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+	<!-- Begin Sidebar -->
+	<div id="sidebar">
+		 <div id="logo"><a href="/"><img src="../style/images/logo.png" alt="ZZY's HOMEPAGE" /></a></div>
+		 
+	<!-- Begin Menu -->
+    <div id="menu" class="menu-v">
+      <ul>
+        <li><a href="./" >主页</a></li>
+        <li><a href="#" class="active">管理书库</a>
+        	<ul>
+        		<li><a href="bookquery.html">图书查询</a></li>
+        		<li><a href="addbook.html">图书入库</a></li>
+        		
+        	</ul>
+        </li>
+        <li><a href="#">管理借书证</a>
+        	<ul>
+        		<li><a href="idinfo.html">借书证信息查询</a></li>
+                <li><a href="borrowlist.html">借书证借书记录查询</a></li>
+        		<li><a href="opidcard.html">增加/删除借书证</a></li>
+        		
+        	</ul>
+        </li>
+        <li><a href="#">借还书</a>
+        	<ul>
+        		<li><a href="borrow.html">借书</a></li>
+        		<li><a href="return.html">还书</a></li>
+        		
+        	</ul>
+        </li>
+        <li><a href="#">账号设置</a>
+        	<ul>
+        		<li><a href="addadmin.html">添加新管理员账号</a></li>
+        		<li><a href="changepw.html">修改密码</a></li>
+        		<li><a href="deleteadmin.html">删除本管理员账号</a></li>
+        	</ul>
+        </li>
+        <li><a href="./logout.php">登出</a></li>
+      </ul>
+    </div>
+    <!-- End Menu -->
+   
+    
+    <div class="sidebox">
+    <!--<ul class="share">
+    	<li><a href="#"><img src="style/images/icon-rss.png" alt="RSS" /></a></li>
+    	<li><a href="#"><img src="style/images/icon-facebook.png" alt="Facebook" /></a></li>
+    	<li><a href="#"><img src="style/images/icon-twitter.png" alt="Twitter" /></a></li>
+    	<li><a href="#"><img src="style/images/icon-dribbble.png" alt="Dribbble" /></a></li>
+    	<li><a href="#"><img src="style/images/icon-linkedin.png" alt="LinkedIn" /></a></li>
+    </ul>-->
+    </div>
+
+    
+	</div>
+	<!-- End Sidebar -->
+	
+	<!-- Begin Content -->
+	<div id="content">
+	<h1 class="title">图书管理系统V1.0</h1>
+	<div class="line"></div>
+    <div class="info-box" style="text-align:center">
+    <h2 class="title">单本图书录入</h2>
+   	<form>
+    ID:<input type="text" id="id_si" class="si"><br />
+    类别:<input type="text" id="tp_si" class="si"><br />
+    名称:<input type="text" id="name_si" class="si"><br />
+    出版社:<input type="text" id="pub_si" class="si"><br />
+    出版年份:<input type="text" id="year_si" class="si" placeholder="必须是正整数"><br />
+    作者:<input type="text" id="au_si" class="si"><br />
+    价格:<input type="text" id="pri_si" class="si" placeholder="输入一个非负整数或小数"><br />
+    入库数量:<input type="text" id="num_si" class="si" placeholder="必须是正整数"><br /><br /><br />
+    <a class="blue button" id="submit_si" style="width:94%" href="#">确认录入</a><br />
+    </form>
+    </div>
+    <div class="note-box">
+    <h2 class="title">批量录入（请上传列表文件）</h2>
+    <div class="intro">您可以直接将文件拉到下面的方框中上传哦！</div>
+	<form>
+	  <div id="queue" ></div>
+		<input id="file_upload" name="file_upload" type="file"  multiple="true">&nbsp;|&nbsp;点击确认上传前请阅读以下说明&nbsp;|&nbsp;
+		<a class="purple button" href="javascript:up()">确认上传</a>
+	</form>
+    您上传的文件应以UTF-8无BOM格式编码，且每行的格式为:<br />【书号,类别,书名,出版社,年份,作者,价格,数量】(分隔符,为半角！)
+    </div>
+     <div class="download-box" style="text-align:center">
+    <h2 class="title">增加图书数量</h2>
+   	<form>
+    图书ID:<input type="text" id="id_add" class="add"><br />
+    添加数量:<input type="text" id="num_add" class="add"><br />
+    <br /><br />
+    <a class="green button" id="submit_add" style="width:94%" href="#">确认添加</a><br />
+    </form>
+    </div>
+    <script type="text/javascript">
+		
+		$(function() {
+			$('#file_upload').uploadifive({
+				'auto'             : false,
+				'queueID'          : 'queue',
+				'uploadScript'     : 'addbook_mul.php',
+				'uploadLimit'  : 0,
+				'multi'        : false,
+				'queueSizeLimit' :1,
+				'buttonClass'  : 'button purple',
+				'fileSizeLimit' : "10KB",
+				'buttonText'   : '选取文件',
+				'onUploadComplete' : function(file, data) {alert(data);},
+				'onError'      : function(errorType) {
+            switch(errorType)
+			{
+				
+				case "FILE_SIZE_LIMIT_EXCEEDED": alert("文件太大了！最大只能传10MB"); break;
+				case "FORBIDDEN_FILE_TYPE": alert("禁止上传此类文件"); break;
+				case "404_FILE_NOT_FOUND": alert("未找到文件"); break;
+			}
+        }
+			 
+				
+			});
+		});
+	</script>
+<div id="footer">
+  	&copy;Jeffery Zhao; 2014. Alpha<br /><br />
+    </div>
+    <!-- End Footer -->
+    
+    	
+	</div>
+	<!-- End Content -->
+
+</div>
+<script type="text/javascript" src="scripts.js"></script>
+<!-- End Wrapper -->
+<div class="clear"></div>
+<!--[if !IE]> -->
+<script type="text/javascript" src="../style/js/jquery.corner.js"></script>
+<!-- <![endif]-->
+
+</body>
+</html>
+<script type="text/javascript">
+function up()
+{
+if(confirm("请确认您上传的文件（若含中文）以UTF-8无BOM格式编码而非ANSI编码，并按照说明所示格式。\n若格式错误将导致录入的数据乱码或无法录入。"))
+$('#file_upload').uploadifive('upload');
+}
+  $(function(){ 
+   $("#submit_add").click(function(){  
+		var id= $("#id_add").val(); 
+		var num = $("#num_add").val();
+        $.post("addbooknum.php",{id:id, num:num},function(msg){ 
+		alert(msg);
+		$(".add").val("");
+        }); 
+    }); 
+	$("#submit_si").click(function(){  
+		var id_si= $("#id_si").val(); 
+		var tp=$("#tp_si").val();
+		var name=$("#name_si").val(); 
+		var pub=$("#pub_si").val();
+		var year=$("#year_si").val();
+		var au=$("#au_si").val(); 
+		var price=$("#pri_si").val();
+		var num_si=$("#num_si").val();
+        $.post("addbook_single.php",{id:id_si, name:name, type:tp, publisher:pub, year:year, author:au,price:price, num:num_si},function(msg){ 
+		alert(msg);
+		$(".si").val("");
+        }); 
+    }); 
+}); 
+</script>

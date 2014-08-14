@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图书管理系统</title>
+<link rel="shortcut icon" type="image/x-icon" href="../style/images/favicon.png" />
+<link rel="stylesheet" type="text/css" href="../style.css" media="all" />
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="style/css/ie7.css" media="all" />
+<![endif]-->
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="style/css/ie8.css" media="all" />
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="style/css/ie9.css" media="all" />
+<![endif]-->
+<script type="text/javascript" src="../style/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="../style/js/ddsmoothmenu.js"></script>
+<script type="text/javascript" src="../style/js/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="../style/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="../style/js/carousel.js"></script>
+<script type="text/javascript" src="../style/js/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="../style/js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="../style/js/jquery.slickforms.js"></script>
+
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+	<!-- Begin Sidebar -->
+	<div id="sidebar">
+		 <div id="logo"><a href="./"><img src="../style/images/logo.png" alt="HOMEPAGE" /></a></div>
+		 
+	<!-- Begin Menu -->
+    <div id="menu" class="menu-v">
+      <ul>
+        <li><a href="./" >主页</a></li>
+        <li><a href="./query.html" >图书查询</a></li>
+        <li><a href="./mylib.html" >我的借书记录</a></li>
+        <li><a href="./login.html" class="active">登录管理员后台</a></li>
+      </ul>
+    </div>
+    <!-- End Menu -->
+   
+    
+    <div class="sidebox">
+    <!--<ul class="share">
+    	<li><a href="#"><img src="style/images/icon-rss.png" alt="RSS" /></a></li>
+    	<li><a href="#"><img src="style/images/icon-facebook.png" alt="Facebook" /></a></li>
+    	<li><a href="#"><img src="style/images/icon-twitter.png" alt="Twitter" /></a></li>
+    	<li><a href="#"><img src="style/images/icon-dribbble.png" alt="Dribbble" /></a></li>
+    	<li><a href="#"><img src="style/images/icon-linkedin.png" alt="LinkedIn" /></a></li>
+    </ul>-->
+    </div>
+
+    
+	</div>
+	<!-- End Sidebar -->
+	
+	<!-- Begin Content -->
+	<div id="content">
+	<h1 class="title">图书管理系统V1.0</h1>
+	<div class="line"></div>
+	<div class="intro">管理员登录：</div>
+	<form>
+    <div style="text-align:center" class="download-box">
+    用户名: <input type="text" name="user" id="user" /><br />
+    密码： <input type="password" name="pwd" id="pwd" /><br /><br /><br />
+    <a class="green button" id="chk" style="width:94%" href="#">登陆</a>
+    <span id="hinterr" style="display:none; color:Red">用户名或密码错误<br /></span>
+   </div>
+    <!-- Begin Footer -->
+    <div id="footer">
+  	&copy;Jeffery Zhao; 2014. Alpha<br /><br />
+    </div>
+    <!-- End Footer -->
+    
+    
+	</div>
+	<!-- End Content -->
+
+</div>
+<!-- End Wrapper -->
+<div class="clear"></div>
+<script type="text/javascript" src="../style/js/scripts.js"></script>
+<!--[if !IE]> -->
+<script type="text/javascript" src="../style/js/jquery.corner.js"></script>
+<!-- <![endif]-->
+
+</body>
+</html>
+<script type="text/javascript">
+  $(function(){ 
+   $("#chk").click(function(){ 
+        var user = $("#user").val(); 
+		var pwd = $("#pwd").val(); 
+		$("#chk").attr("disabled", true);
+		$("#chk").attr("value", "请稍候");
+        $.post("verifylogin.php",{pw:pwd,  id: user},function(msg){ 
+        $("#hinterr").hide();
+		if(msg==0){
+			 	$("#hinterr").show();
+				$("#chk").html("登陆");
+				$("#chk").attr("disabled", false);
+		}else{
+			 	window.location.href="../";
+		}
+		 
+        }); 
+    }); 
+});  
+</script>
