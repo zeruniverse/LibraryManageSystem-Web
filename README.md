@@ -7,7 +7,6 @@ style文件夹储存前端css及js，image。
 前端模板（包括上传插件 uploadifive）来自互联网（GNU GPL3.0）
 
 <hr />
-图书管理系统
-V1.0
+图书管理系统V1.0-数据库基础课程  
 &copy; Jeffery Zhao. 2014. For course database conception  
-LICENSE: GNU GOL 3.0
+LICENSE: GNU GPL 3.0
