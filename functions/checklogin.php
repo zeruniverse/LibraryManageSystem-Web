@@ -8,4 +8,3 @@ function isLogin()
 	if(!$r) {unset($_SESSION['admin_id']);unset($_SESSION['admin_pw']);}
 	return $r;
 }?>
-
